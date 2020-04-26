@@ -41,12 +41,17 @@ namespace Plex.Web.Api.Services
             return container?.MediaContainer?.Directory;
         }
 
+        public async Task<MediaContainer> GetLibrary(string authKey, string plexServerHost, string libraryKey)
+        {
+             var container = await _plexClient.GetLibrary(authKey, plexServerHost, libraryKey);
+            
+            return container?.MediaContainer;
+        }
+
         public async Task<List<Metadata>> GetLibraryItems(string authKey, string plexServerHost, string libraryKey)
         {
-            var container = await _plexClient.MetadataForLibrary(authKey, plexServerHost, libraryKey);
+            var container = await _plexClient.GetMetadataForLibrary(authKey, plexServerHost, libraryKey);
 
-            if (container)
-                
             return container?.MediaContainer?.Metadata;
         }
 

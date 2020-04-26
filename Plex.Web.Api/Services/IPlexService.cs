@@ -11,7 +11,7 @@ namespace Plex.Web.Api.Services
     {
         // Libraries
         Task<List<Directory>> GetLibraries(string authKey, string plexServerHost);
-
+        Task<MediaContainer> GetLibrary(string authKey, string plexServerHost, string libraryKey);
         Task<List<Metadata>> GetLibraryItems(string authKey, string plexServerHost, string libraryKey);
         Task<List<Metadata>> GetRandomMovies(string authKey, string plexServerHost, string[] libraryKeys, int numberOfMovies = 5);
         Task<List<Session>> GetActiveSessions(string authKey, string plexServerHost);

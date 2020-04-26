@@ -42,7 +42,7 @@ namespace Plex.Web.Api.Hubs
             return percentComplete;
         }
 
-        public async Task<SessionModel> InitiateSession(string authKey, string serverHost, string playerId, string[] movieLibraries, int delaySeconds = 30)
+        public async Task<SessionModel> InitiateMovieSession(string authKey, string serverHost, string playerId, string[] movieLibraries, int delaySeconds = 30)
         {
             const int plexSessionDelayMs = 5000;
             var serverHostFullUri = serverHost.TrimEnd('/');
