@@ -1,4 +1,7 @@
-$HEADER$namespace $NAMESPACE$
+namespace Plex.Web.Api.ResourceModels
 {
-  public class $CLASS$ {$END$}
+    public class MovieModel
+    {
+        
+    }
 }
