@@ -8,8 +8,11 @@ on:
 
 jobs:
   build:
-
+  
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Plex.Web.Api
 
     steps:
     - uses: actions/checkout@v2
@@ -18,7 +21,8 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore 
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    
 
