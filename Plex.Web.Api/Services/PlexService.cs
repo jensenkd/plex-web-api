@@ -36,19 +36,6 @@ namespace Plex.Web.Api.Services
                     c.Player.MachineIdentifier == playerMachineId));
         }
 
-        public async Task<List<Server>> GetServers(string authKey)
-        {
-            var servers = await _plexClient.GetServers(authKey);
-            return servers;
-        }
-
-        public async Task<Server> GetServer(string authKey, string serverKey)
-        {
-            var servers = await _plexClient.GetServers(authKey);
-            return servers.SingleOrDefault(c =>
-                string.Equals(c.MachineIdentifier, serverKey, StringComparison.OrdinalIgnoreCase));
-        }
-
         public async Task<List<Directory>> GetLibraries(string authKey, string plexServerHost)
         {
             var container = await _plexClient.GetLibraries(authKey, plexServerHost);

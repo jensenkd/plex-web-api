@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Plex.Web.Api.Services;
@@ -15,7 +16,7 @@ namespace Plex.Web.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSessions(string authKey, string plexServerUrl, string playerMachineId)
+        public async Task<IActionResult> GetSessions([Required] string authKey,[Required] string plexServerUrl, string playerMachineId)
         {
             if (string.IsNullOrEmpty(playerMachineId))
             {

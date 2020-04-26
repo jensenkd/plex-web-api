@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Plex.Api.Models;
 using Plex.Web.Api.Services;
 
@@ -21,7 +21,7 @@ namespace Plex.Web.Api.Controllers
 
         [Route("{libraryKey}")]
         [HttpGet]
-        public async Task<IActionResult> GetLibrary(string authKey, string plexServerUrl, string libraryKey)
+        public async Task<IActionResult> GetLibrary([Required] string authKey,[Required] string plexServerUrl, string libraryKey)
         {
             MediaContainer library = await _plexService.GetLibrary(authKey, plexServerUrl, libraryKey);
 
@@ -30,7 +30,7 @@ namespace Plex.Web.Api.Controllers
         
         [Route("{libraryKey}/items")]
         [HttpGet]
-        public async Task<IActionResult> GetLibraryMetadata(string authKey, string plexServerUrl, string libraryKey)
+        public async Task<IActionResult> GetLibraryMetadata([Required] string authKey,[Required] string plexServerUrl, string libraryKey)
         {
             List<Metadata> items = await _plexService.GetLibraryItems(authKey, plexServerUrl, libraryKey);
 
@@ -39,7 +39,7 @@ namespace Plex.Web.Api.Controllers
 
         [Route("")]
         [HttpGet]
-        public async Task<IActionResult> GetLibraries(string authKey, string plexServerUrl,
+        public async Task<IActionResult> GetLibraries([Required] string authKey,[Required] string plexServerUrl,
             string[] libraryKeys, string[] types, string[] titles)
         {
             if (string.IsNullOrEmpty(authKey) || string.IsNullOrEmpty(plexServerUrl))
