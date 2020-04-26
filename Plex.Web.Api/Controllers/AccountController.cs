@@ -19,6 +19,10 @@ namespace Plex.Web.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(SigninModel model)
         {
+            if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password))
+            {
+                return BadRequest();
+            }
             var user = await _plexClient.SignIn(model.Username, model.Password);
             return Ok(user);
         }

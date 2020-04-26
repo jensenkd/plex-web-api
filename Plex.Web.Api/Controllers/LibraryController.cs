@@ -23,7 +23,18 @@ namespace Plex.Web.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLibrary([Required] string authKey,[Required] string plexServerUrl, string libraryKey)
         {
+            if (string.IsNullOrEmpty(authKey) || string.IsNullOrEmpty(plexServerUrl) ||
+                string.IsNullOrEmpty(libraryKey))
+            {
+                return BadRequest();
+            }
+                
             MediaContainer library = await _plexService.GetLibrary(authKey, plexServerUrl, libraryKey);
+
+            if (library == null)
+            {
+                return NotFound();
+            }
 
             return Ok(library);
         }
@@ -32,6 +43,12 @@ namespace Plex.Web.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLibraryMetadata([Required] string authKey,[Required] string plexServerUrl, string libraryKey)
         {
+            if (string.IsNullOrEmpty(authKey) || string.IsNullOrEmpty(plexServerUrl) ||
+                string.IsNullOrEmpty(libraryKey))
+            {
+                return BadRequest();
+            }
+            
             List<Metadata> items = await _plexService.GetLibraryItems(authKey, plexServerUrl, libraryKey);
 
             return Ok(items);
@@ -46,7 +63,7 @@ namespace Plex.Web.Api.Controllers
             {
                 return BadRequest();
             }
-
+       
             List<Directory> libraries = await _plexService.GetLibraries(authKey, plexServerUrl);
 
             if (libraryKeys.Any())

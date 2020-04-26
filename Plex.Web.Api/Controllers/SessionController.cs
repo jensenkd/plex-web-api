@@ -18,6 +18,11 @@ namespace Plex.Web.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSessions([Required] string authKey,[Required] string plexServerUrl, string playerMachineId)
         {
+            if (string.IsNullOrEmpty(authKey) || string.IsNullOrEmpty(plexServerUrl))
+            {
+                return BadRequest();
+            }
+            
             if (string.IsNullOrEmpty(playerMachineId))
             {
                 return Ok(await _plexService.GetActiveSessionForPlayer(authKey, plexServerUrl, playerMachineId));

@@ -24,6 +24,11 @@ namespace Plex.Web.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetServers([Required] string authKey, string serverKey)
         {
+            if (string.IsNullOrEmpty(authKey))
+            {
+                return BadRequest();
+            }
+            
             if (string.IsNullOrEmpty(serverKey))
             {
                 var servers = await _plexClient.GetServers(authKey);
