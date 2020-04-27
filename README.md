@@ -4,3 +4,4 @@
 ![Docker Image CI](https://github.com/jensenkd/plex-web-api/workflows/Docker%20Image%20CI/badge.svg)
 
 
+Docker Image: https://hub.docker.com/r/jensenkd/plex-web-api
