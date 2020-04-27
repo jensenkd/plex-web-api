@@ -1,27 +1,14 @@
-# https://hub.docker.com/_/microsoft-dotnet-core
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
-WORKDIR /source
-
-# copy csproj and restore as distinct layers
-COPY *.sln .
-COPY src/*.csproj ./plexwebapi/
-RUN dotnet restore -r linux-musl-x64
-
-# copy everything else and build app
-COPY src/. ./plexwebapi/
-WORKDIR /source/plexwebapi
-RUN dotnet publish -c release -o /app -r linux-musl-x64 --self-contained false --no-restore
-
-# final stage/image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
-COPY --from=build /app ./
 
-# See: https://github.com/dotnet/announcements/issues/20
-# Uncomment to enable globalization APIs (or delete)
-#ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT false
-#RUN apk add --no-cache icu-libs
-#ENV LC_ALL en_US.UTF-8
-#ENV LANG en_US.UTF-8
+COPY src/*.csproj .
+RUN dotnet restore 
 
-ENTRYPOINT ["./plexwebapi"]
+COPY src/. ./
+RUN dotnet publish Plex.Web.Api.csproj -c Release -o out
+
+# Build the image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "Plex.Web.Api.dll"]
