@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plex.Web.Api", "Plex.Web.Api.csproj", "{80C6DAB5-DE91-4D58-B5FF-65AAB4D2755D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src", "Plex.Web.Api.csproj", "{80C6DAB5-DE91-4D58-B5FF-65AAB4D2755D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
